@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Forget-Me-Not-News</title>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- my css -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- VUE TEMPLATE for main article row, list, and linked article row -->
+  <script type="text/x-template" id="article-template">
+
+    <div class="row bottom">
+      <div class="col-sm-8 content" v-bind:class="{'col-sm-6': small}" v-bind:id="item._id">
+
+        <!--image and byline text enclosed to they go above main text-->
+        <div class="top-half">
+          <img class='sizeImg img-rounded'v-bind:src='item.image'/>
+            <div class='title-main'>
+              <span>
+                <p><h5><a v-bind:href='item.url'> {{ item.title }}</a></h5></p>
+              </span>
+              <p><span id='author'> {{ item.source }} </span></p>
+              <span>
+                <p><sub>Publication Date: {{ item.pubDate }} </sub></p>
+              </span>
+            </div>
+        </div>
+        <!-- end image/byline -->
+
+        <div class="article-text">
+          <span id='article' v-html="item.snippet"></span>
+        </div>
+      </div>
+
+       <!-- when link clicked -->
+       <!-- if article title is clicked in link list, display this at that article index -->
+
+      <div class="col-sm-6 content" v-if="articleShow === linked._id">
+        <div>
+          <button class="btn btn-info" v-on:click="showHide" style="opacity: 0.5; color: white;">Back to List</button>
+        </div>
+
+        <div class="top-half">
+          <img class='sizeImg img-rounded' v-bind:src='linked.image'/>
+            <div class='title-sub'>
+              <span>
+                <p><h5><a v-bind:href='linked.url'> {{ linked.title }}</a></h5></p>
+              </span>
+              <p id='author'> {{ linked.source }} </p>
+              <span>
+                <p><sub>Publication Date: {{ linked.pubDate }} </sub></p>
+              </span>
+            </div>
+        </div>
+
+        <div class="article-text">
+          <span id='article' v-html="linked.snippet"></span>
+        </div>
+      </div>
+
+      <!-- linked articles list -->
+
+    <!--  if links button clicked, then render -->
+
+      <div class="col-sm-4 content" v-bind:class="{'col-sm-6': big}" id="list-col" v-if="!articleShow">
+        <!-- <div><button class="btn btn-lg" v-on:click="showHide">Back to Article</button></div> -->
+
+        <div style="text-align: center; color: gray;"><h4>Same Topic</h4><hr style="color: gray; margin-top: 0px;"></div>
+
+        <div class='link'
+        v-for="(linkedItem, linkedIndex) of item.linked"
+        > <!-- maybe have a v-for here that creates a button for every link in the links key? -->
+
+          <button class="btn btn-info linked-btn" v-bind:id="linkedItem.id" v-on:click="showLinked"> <!--bind value here to a new empty string in data? on click run that through a display func? -->
+          <!-- onclick if content blah blah = objectId of article, componentshow w/ that article? -->
+            {{ linkedItem.title }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- __________end vue component____________________ -->
+
+  <!-- ___________BEGIN STATIC PAGE ELEMENTS______________________ -->
+
+  <div class="container-fluid" id="big">
+    <!-- contains all the content divs, and the nav -->
+
+  <!-- title and links to rest of pages -->
+    <div class="page-header">
+      <div id="header-top">
+        <span style="font-size: 36px;">Forget-me-not-news<span>
+        <div id="page-links" style="float: right; color: white; margin-top: 6px;">
+          <span><a href="#">About</a></span>
+          <span><a href="#">About</a></span>
+          <span><a href="#">About</a></span>
+        </div>
+      </div>
+
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;Timeline</span>
+
+      <div id="header-about">
+        <button type="button" class="btn btn-info" id="about-btn" data-toggle="collapse" data-target="#about">Why use this site?</button>
+        <div id="about" class="collapse">
+          <div id="about-text">No story survives first contact with the media. <br><br>Forget-me-not is a tool for spotting and tracking bias, spin, and omission of truth in your news. By comparing stories from different sources on the same day, about the same topic, you as the reader can better understand how and why the media reports the way it does. <br><br>Try it out, and take control of the story. </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- setting up fluid grid for the content, 12 overall, 2 for nav, 10 for articles. 7 for big, 3 for small -->
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">Close</a>
+      <li v-for="(item, index) of content">
+      <a v-bind:href="'#' + item._id"> {{ item.pubDate.toUpperCase() }}</a>
+      </li>
+    </div>
+
+    <!-- contains the next two divs -->
+    <div class="col-md-12">
+
+      <row-article v-for="(item, index) of content" v-bind:item="item" v-bind:item="index"></row-article>
+
+        <!-- _________________content placed here by vue component_____________________ -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script
+src="https://code.jquery.com/jquery-3.1.1.min.js"
+integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

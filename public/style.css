@@ -1,0 +1,168 @@
+/* setting vh in order to have elements reach bottom of page */
+html, body {
+    height: 100vh;
+}
+body{
+    font-family: sans-serif;
+    font-size: 12px;
+
+}
+
+/*forget me not banner*/
+.page-header {
+    margin-top: -20px;
+    margin-bottom: 0px;
+    padding-top: 6px;
+    padding-left: 24px;
+    border-bottom: 4px solid black;
+    text-align: left;
+    color: white;
+    height: auto;
+    background-image: url(https://maxpull-gdvuch3veo.netdna-ssl.com/wp-content/uploads/2011/07/forget-me-nots.jpg);
+    background-size: 120%;
+    opacity: .5
+
+}
+
+#header-about {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  flex-direction: column;
+}
+#header-top{
+  width: 100%;
+  border-bottom: 2px solid white;
+  /* other page links styling, too */
+}
+#about-btn {
+  width: 256px;
+  text-align: center
+}
+#about {
+  height: auto;
+  width: 50%;
+  text-align: center;
+  padding-top: 20px;
+}
+#about-text{
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0,0,0,.3)
+}
+
+/*sidebar--------------elements*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+}
+
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: darkgrey;
+    background-color: white;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 20px;
+    margin-left: 50px;
+}
+
+#big {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/*---------------------------*/
+
+/*container id*/
+/*big holds all columns*/
+#big {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.col-md-12 {
+    background-color: rgba(255,252,188,.5);
+    padding-top: 12px;
+    height: 100vh;
+    overflow: scroll;
+}
+.content {
+    border-right: 1px solid gray;
+    border-radius: 2px;
+    border-right-height: 40vh;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    height: 50vh;
+    overflow: scroll;
+}
+#article {
+  font-size: 14px;
+}
+#list-col {
+  padding: 6px;
+}
+.link {
+  margin-bottom: 6px;
+  opacity: 0.5;
+}
+
+.bottom {
+    border-bottom: 1px solid gray;
+}
+/*top-half of content div*/
+.top-half {
+    width: 100%;
+}
+
+/*all images*/
+.img-rounded {
+    width: 50%;
+    height: auto;
+    float: left;
+    margin-right: 20px;
+}
+/*titles inside article divs*/
+.title-main, .title-sub {
+    margin-left: 0px;
+}
+
+/*buttons*/
+button {
+    width: 100%;
+}
+.linked-btn {
+  width: 80%;
+  height: 80px;
+  margin-left: 10%;
+  white-space: normal;
+}
+
