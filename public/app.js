@@ -77,3 +77,18 @@ var fillPage = new Vue({
   }
 });
 
+//Getting data from the api, or just handling it?
+
+var apiSource = new Vue({
+  el: '#fill_in_later',
+  data: {
+    //
+  },
+  created: function(){
+    //
+  },
+  methods: {
+    //
+  }
+});
+
